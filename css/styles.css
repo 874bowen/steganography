@@ -2,7 +2,11 @@ body, html {
     margin:0;
     padding:0;
     font-family:Arial,sans-serif;
-    color:#717171;
+    background-color: rgb(35, 64, 71);
+    color:#f3efef;
+}
+.caed {
+    background-color: rgb(35, 64, 71);   
 }
 h1 {
     color:black;
@@ -15,11 +19,11 @@ h1 {
     margin:auto;
 }
 #right {
-    position:relative;
+    /* position:relative;
     float:left;
     margin: 10px;
     width:600px;
-    vertical-align:top;
+    vertical-align:top; */
 }
 #left {
     position:relative;
@@ -41,15 +45,15 @@ h1 {
 #messageArea {
     width:100%;
 }
-#img, #cover {
-    width:290px;
+#img {
+    /* height:85%; */
 }
 .btns {
     margin-top:15px;
     margin-bottom:10px;
     padding: 0 40px;
 }
-.btn {
+/* .btn {
     padding:10px 20px 10px 20px;
     -moz-border-radius:15px;
     -o-border-radius:15px;
@@ -61,13 +65,13 @@ h1 {
     background-color:white;
     width:50px;
     text-align:center;
-}
-.btn:hover {
+} */
+/* .btn:hover {
     color:white;
     background-color:#FF4545;
-}
+} */
 #download {
-    position:absolute;
+    /* position:absolute;
     top:47px;
     left:4px;
     padding:10px 5px 5px 3px;
@@ -77,14 +81,14 @@ h1 {
     -o-border-radius:0 0 15px 15px;
     -webkit-border-radius:0 0 15px 15px;
     border-radius:0 0 15px 15px;
-    text-decoration:none;
+    text-decoration:none; */
 }
-#download:hover {
+/* #download:hover {
     width:70px;
-}
-#download:hover:after {
+} */
+/* #download:hover:after {
     content:"ownload";
-}
+} */
 #description {
     line-height:25px;
     padding-bottom:5px;
@@ -93,8 +97,6 @@ h1 {
 #capacity {
     font-weight:normal;
     font-size:15px;
-    margin-left:10px;
-    vertical-align:middle;
 }
 .note {
     font-size:9px;
@@ -113,10 +115,10 @@ h1 {
     text-align:right;
 }
 textarea{
-    width:228px;
     padding:10px;
     height:200px;
-    resize:none;
+    width:100%;
+    /* resize:none; */
 }
 h2{
     margin-top:0;
