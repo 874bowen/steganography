@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Information Hiding: Steganography done with JavaScript</title>
+		<title>Hiding text in images using Plain JavaScript</title>
 		<meta content="Ivan" name="author">
 		<meta content="This demo shows the core functionality of my JavaScript library steganography.js, which provides functions to hide or read data in or from the alpha channel of an image." name="description">
-		<meta content="steganography, information hiding, javascript, html5" name="keywords">
+		<meta content="steganography, text hiding, javascript, html5" name="keywords">
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,33 +13,47 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1>Information Hiding: Steganography done with JavaScript</h1>
-			<div id="description">This little demo here demonstrates the core functionality of my JavaScript library <a href="../"><i>steganography.js</i></a>. Basically it allows you to hide or read data in or from the alpha channel of any image.<br/>Regarding the demo: first of all you may hide the text from the textarea inside any image - you have previously selected from your local filesystem - by using the "Hide"-button. After the new image with the text encoded inside is generated you may download it and distribute it with the secret message inside instead of the old boring messageless picture. As the second part it is possible to read a message encoded inside the selected image using the "Read"-button.<br/><span class="note">Note that there will be no message at all or some cryptic message if no alpha channel is set or the message is encoded with another algorithm, so I recommend you to use this demo to encode and decode the message.</span></div>
-			<div id="left">
-				<h2>Image:</h2>
-				<input id="file" type="file"/><br/>
-				<h2>Text:<span id="capacity"></span></h2>
-				<textarea id="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</textarea>
-				<div class="btns">
-					<span id="hide" class="btn">Hide</span>
-					<span id="read" class="btn">Read</span>
-				</div>
+            
+			<h1 class="text-info">Hiding text in images using Plain JavaScript</h1>
+			<div id="description">You can hide and retrieve messages in a picture within seconds. Upload a file then type in the message you want to hide then click hide. To retrieve messages from these images upload the image wwith hidden text then click the 'Read' button.</div>
+			<div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2 class="text-success">Image:</h2>
+                        <input id="file" type="file"/>
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="text-warning">Text:<span id="capacity"></span></h2>
+                        <textarea id="text">Your secret message</textarea>
+                        <div class="btns">
+                            <span id="hide" class="btn btn-outline-warning">Hide</span>
+                            <span id="read" class="btn btn-outline-success">Read</span>
+                        </div>
 			</div>
-			<div id="right">
-				<div id="original" class="half">
+        </div>
+        </div>
+        <div id="messageArea" class="mb-3 pb-3 invisible">
+            <h2 class="text-info">Message:</h2>
+            <div class="mb-3" id="message"></div><span id='copy' onclick="copyText()" class="btn btn-outline-info">Copy Text</span>
+        </div>
+			<div id="right" class="row">
+				<div id="original" class="col-md-6">
 					<h2>Plain Image:</h2>
-					<img id="img" src="tshirts-20.jpg"/>
+                    <div class="card">
+					<img id="img" class="card-img" src="images/ooppy.jpg"/>
+                </div>
 				</div>
-				<div id="stego" class="half">
+				<div id="stego" class="col-md-6">
 					<h2>Encoded Image:</h2>
-					<img id="cover" src=""/>
-					<a id="download" class="btn small" download="cover.png" rel="nofollow"><strong>D</strong></a>
-					<div class="note">Click "D"-button or if it does not work perform right-click to download</div>
+                    <div class="card">
+                        <img id="cover" class="card-img" src=""/>
+                        <div class="card-img-overlay"><a id="download" class="btn btn-success" download="cover.png" rel="nofollow">Download</a></div>
+                    </div>
+					<!-- <img id="cover" src=""/>
+					<a id="download" class="btn btn-success" download="cover.png" rel="nofollow"></a> -->
+					
 				</div>
-				<div id="messageArea" class="invisible">
-					<h2>Message:</h2>
-					<div id="message"></div>
-				</div>
+
 			</div>
 			<div class="clear"></div>
 		
@@ -85,6 +99,23 @@
 			}
 		}
 
+        function copyText(){
+            let cpText = document.getElementById("message");
+            let text = cpText.innerText;
+            console.log(text);
+            let textArea = document.createElement('textarea');
+            textArea.width = "1px";
+            textArea.height = "1px";
+            textArea.background = "transparents";
+            textArea.value = text;
+            document.body.append(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea); 
+            let btnText = document.getElementById("copy");
+            btnText.innerText = "Copied!";
+        }
+
 		function hide() {
 			var stego = document.getElementById("stego"),
 				img = document.getElementById("img"),
@@ -113,6 +144,7 @@
 					textarea.value = message.innerHTML;
 					updateCapacity();
 				}
+
 			}
 		}
 
